@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "slices"
 )
 
 /*
@@ -41,5 +42,28 @@ func main() {
 }
 
 func threeSum(nums []int) [][]int {
-    threeSumList := make([][]int, 0)
+    slices.Sort(nums)
+    toReturn := make([][]int, 0)
+    for idx, num := range nums {
+        if idx > 0 && num == nums[idx - 1] {
+            continue
+        }
+        start := idx + 1
+        end := len(nums) - 1
+        for start < end {
+            threeSum := num + nums[start] + nums[end]
+            if threeSum < 0 {
+                start++
+            } else if threeSum > 0 {
+                end--
+            } else {
+                toReturn = append(toReturn, []int{num, nums[start], nums[end]})
+                start++
+                for nums[start] == nums[start - 1] && start < end {
+                    start++
+                }
+            }
+        }
+    }
+    return toReturn
 }
