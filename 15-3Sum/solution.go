@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "slices"
 )
 
 /*
@@ -35,5 +36,35 @@ Explanation: The only possible triplet sums up to 0.
 */
 
 func main() {
+    nums := []int{-1,0,1,2,-1,-4}
+    answer := threeSum(nums)
+    fmt.Println(answer)
+}
 
+func threeSum(nums []int) [][]int {
+    // Build diff lookup map
+    slices.Sort(nums)
+    toReturn := make([][]int, 0)
+    for idx, num := range nums {
+        if idx > 0 && num == nums[idx - 1] {
+            continue
+        }
+        start := idx + 1
+        end := len(nums) - 1
+        for start < end {
+            threeSum := num + nums[start] + nums[end]
+            if threeSum < 0 {
+                start++
+            } else if threeSum > 0 {
+                end--
+            } else {
+                toReturn = append(toReturn, []int{num, nums[start], nums[end]})
+                start++
+                for nums[start] == nums[start - 1] && start < end {
+                    start++
+                }
+            }
+        }
+    }
+    return toReturn
 }
