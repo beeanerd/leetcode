@@ -35,5 +35,11 @@ Explanation: The only possible triplet sums up to 0.
 */
 
 func main() {
+    nums := []int{-1,0,1,2,-1,-4}
+    answer := threeSum(nums)
+    fmt.Println(answer)
+}
 
+func threeSum(nums []int) [][]int {
+    threeSumList := make([][]int, 0)
 }
