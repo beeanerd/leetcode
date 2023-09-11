@@ -42,7 +42,6 @@ func main() {
 }
 
 func threeSum(nums []int) [][]int {
-    // Build diff lookup map
     slices.Sort(nums)
     toReturn := make([][]int, 0)
     for idx, num := range nums {
