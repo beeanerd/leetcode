@@ -61,6 +61,7 @@ func threeSum(nums []int) [][]int {
                 start++
                 for nums[start] == nums[start - 1] && start < end {
                     start++
+
                 }
             }
         }
