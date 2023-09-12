@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "strings"
 )
 
 /*
@@ -26,9 +27,42 @@ func main() {
 }
 
 func generateParenthesis(n int) []string {
-    
+    var res []string
+    var stack []string
+
+    var backtrack func(int, int)
+
+    backtrack = func (openParen int, closeParen int) {
+        if openParen == n && closeParen == n && openParen == closeParen {
+            res = append(res, strings.Join(stack, ""))
+            return
+        }
+        if openParen < n {
+            stack = append(stack, "(")
+            backtrack(openParen + 1, closeParen)
+            stack = stack[:len(stack) - 1]
+        }
+        if closeParen < openParen {
+            stack = append(stack, ")")
+            backtrack(openParen, closeParen + 1)
+            stack = stack[:len(stack) - 1]
+        }
+    }
+    backtrack(0, 0)
+
+    return res
 }
 
-func generateParenthesisHelper(remaining int, toAppend *[]string) {
-    if remaining == 0
-}
+
+/*
+    Base Case: Length of index = 2n
+    
+                      ""
+                      /  
+                    "("  
+                 /      \  
+               "(("     "()"
+               / \      /
+            "(((""(()""()("
+
+*/
